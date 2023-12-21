@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CHAT</title>
     <style>
         .text{
             display: flex;
@@ -68,8 +68,8 @@ const output = document.querySelector('.commenttext')
 let lastcheck = 0
 let titleon = ''
 let interval
-let timerfocus = 10000 //ms до проверки
-let timerunfocus = 60000 // ms до проверки в свернутом состоянии
+let timerfocus = 15000 //ms до проверки
+let timerunfocus = 120000 // ms до проверки в свернутом состоянии
 
 let timer = timerfocus
 
@@ -145,7 +145,7 @@ async function CheckMessage(){
         lastcheck = checktemp
         let txtj = JSON.parse(txt)
         let online = txtj.online
-        console.log(online)
+        // console.log(online)
         for (let key in online){
             if (!document.querySelector(`[data-user="${key}"]`)){
                     const userspan = document.createElement('span')
