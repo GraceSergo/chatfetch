@@ -60,6 +60,7 @@
 <script src="scr.js"></script>
 <script>
 let chatID = 0, login = '', keystring = '', keyword = '',lastdate = ''
+let hide = true
 
 // поле для ввода сообщения, которое будет зашифровано
 const input = document.querySelector('#text')
@@ -179,8 +180,10 @@ async function WriteText(data){
     if (data.userName == login) ustag = ' class="author"'
     else {
         titleon = 'Новое сообщение'
-        var audio=new Audio('sound.mp3');
-        audio.play();
+        if (!hide) {
+            var audio=new Audio('sound.mp3');
+            audio.play();
+        }
     }
     output.innerHTML += `<div${ustag}><span class="user">${data.userName}</span> <span class="time">(${time}):</span> <span class="msg">${msg}</span></div$>`
     output.scrollTop = output.scrollHeight;
@@ -242,17 +245,20 @@ changeTitle.prototype.stop = function() {
 
 var timerTitle = new changeTitle();
 window.onblur = function() {
+    hide = false
     timerTitle.start();
     timer = timerunfocus
 };
 window.onfocus = function() {
     timerTitle.stop();
+    hide = true
     titleon = ''
     document.title = 'CHAT'
     timer = timerfocus
 };
 document.addEventListener('mousemove',(e)=>{
     timerTitle.stop();
+    hide = true
     titleon = ''
     document.title = 'CHAT'
     timer = timerfocus
