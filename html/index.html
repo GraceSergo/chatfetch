@@ -68,6 +68,10 @@ const output = document.querySelector('.commenttext')
 let lastcheck = 0
 let titleon = ''
 let interval
+let timerfocus = 10000 //ms до проверки
+let timerunfocus = 60000 // ms до проверки в свернутом состоянии
+
+let timer = timerfocus
 
 //Вход в систему
 document.getElementById('key').addEventListener('keypress',(e)=>{
@@ -103,7 +107,7 @@ function start(){
 
     Send(message)
     // CheckMessage()
-    interval = setInterval(CheckMessage, 30000)
+    interval = setInterval(CheckMessage, timer)
 }
 //Отправка сообщений
 async function Send(message){
@@ -118,7 +122,7 @@ async function Send(message){
         input.value = ''
         clearInterval(interval)
         CheckMessage()
-        interval = setInterval(CheckMessage, 5000)
+        interval = setInterval(CheckMessage, timer)
         titleon = ''
     }
 }
@@ -239,16 +243,19 @@ changeTitle.prototype.stop = function() {
 var timerTitle = new changeTitle();
 window.onblur = function() {
     timerTitle.start();
+    timer = timerunfocus
 };
 window.onfocus = function() {
     timerTitle.stop();
     titleon = ''
     document.title = 'CHAT'
+    timer = timerfocus
 };
 document.addEventListener('mousemove',(e)=>{
     timerTitle.stop();
     titleon = ''
     document.title = 'CHAT'
+    timer = timerfocus
 })
 
     </script>
